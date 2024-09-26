@@ -1,5 +1,9 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat en Vivo</title>
     <style type='text/css'>
         .embeddedServiceHelpButton .helpButton .uiButton {
             background-color: #005290; /* Color de fondo del botón */
@@ -29,7 +33,7 @@
             cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
             text-decoration: none; /* Sin subrayado */
         }
-        
+
         /* Estilo de la ventana de chat dentro de la página */
         #chat-window {
             display: none; /* Ocultar por defecto */
@@ -63,11 +67,14 @@
 
 <body>
     <!-- Contenedor del botón de chat -->
-     <!--    <div id="chat-button-container">
-        <div id="liveagent_button">
-            Chat
+    <div id="chat-button-container">
+        <a id="liveagent_button_online_573aj000002HkWr" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('573aj000002HkWr')">
+            Chat en Vivo
+        </a>
+        <div id="liveagent_button_offline_573aj000002HkWr" style="display: none;">
+            Chat Offline
         </div>
-    </div> -->
+    </div>
 
     <!-- Ventana de chat dentro de la página -->
     <div id="chat-window">
@@ -78,6 +85,7 @@
     </div>
 
     <!-- Scripts para la configuración de Embedded Service -->
+    <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
     <script type='text/javascript'>
         var initESW = function(gslbBaseURL) {
             embedded_svc.settings.displayHelpButton = true; // Mostrar botón de ayuda
@@ -88,25 +96,25 @@
             embedded_svc.settings.entryFeature = 'LiveAgent';
 
             embedded_svc.init(
-                'https://creative-bear-ay8au7-dev-ed.my.salesforce.com',
-                'https://creative-bear-ay8au7-dev-ed.my.site.com/cusotmeruser',
+                'https://mindful-narwhal-260re0-dev-ed.trailblaze.my.salesforce.com',
+                'https://mindful-narwhal-260re0-dev-ed.trailblaze.my.site.com/testlwrvforcesite',
                 gslbBaseURL,
-                '00D3t000002l3zt',
-                'Chat_Agentes',
+                '00Daj00000D91On',
+                'Agent',
                 {
-                    baseLiveAgentContentURL: 'https://c.la1-c1-ia4.salesforceliveagent.com/content',
-                    deploymentId: '5723t0000000nFa',
-                    buttonId: '5733t0000000o03',
-                    baseLiveAgentURL: 'https://d.la1-c1-ia4.salesforceliveagent.com/chat',
-                    eswLiveAgentDevName: 'Chat_Agentes',
-                    isOfflineSupportEnabled: true
+                    baseLiveAgentContentURL: 'https://c.la11-core1.sfdc-8tgtt5.salesforceliveagent.com/content',
+                    deploymentId: '572aj000008NeST',
+                    buttonId: '573aj000002HkWr',
+                    baseLiveAgentURL: 'https://d.la11-core1.sfdc-8tgtt5.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'Agent',
+                    isOfflineSupportEnabled: false
                 }
             );
         };
 
         if (!window.embedded_svc) {
             var s = document.createElement('script');
-            s.setAttribute('src', 'https://creative-bear-ay8au7-dev-ed.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+            s.setAttribute('src', 'https://mindful-narwhal-260re0-dev-ed.trailblaze.my.salesforce.com/embeddedservice/5.0/esw.min.js');
             s.onload = function() {
                 initESW(null);
             };
@@ -115,12 +123,24 @@
             initESW('https://service.force.com');
         }
 
+        // Lógica para mostrar el botón según el estado del agente
+        if (!window._laq) { window._laq = []; }
+        window._laq.push(function() {
+            liveagent.showWhenOnline('573aj000002HkWr', document.getElementById('liveagent_button_online_573aj000002HkWr'));
+            liveagent.showWhenOffline('573aj000002HkWr', document.getElementById('liveagent_button_offline_573aj000002HkWr'));
+        });
+
+        // Inicialización de liveagent
+        liveagent.init('https://d.la11-core1.sfdc-8tgtt5.salesforceliveagent.com/chat', '572aj000008NeST', '00Daj00000D91On');
+    </script>
+
+    <script type="text/javascript">
         // Mostrar y ocultar la ventana del chat
-        document.getElementById('liveagent_button').addEventListener('click', function() {
+        document.getElementById('liveagent_button_online_573aj000002HkWr').addEventListener('click', function() {
             const chatWindow = document.getElementById('chat-window');
-            if (chatWindow.style.display === 'none') {
+            if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
                 chatWindow.style.display = 'block'; // Mostrar el chat
-                liveagent.startChat('5733t0000000o03'); // Iniciar el chat
+                liveagent.startChat('573aj000002HkWr'); // Iniciar el chat
             } else {
                 chatWindow.style.display = 'none'; // Ocultar el chat
             }
