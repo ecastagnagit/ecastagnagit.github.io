@@ -69,6 +69,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </style>
 </head>
 <body>
+  <script type='text/javascript'>
+	function initEmbeddedMessaging() {
+		try {
+			embeddedservice_bootstrap.settings.language = 'es'; // For example, enter 'en' or 'en-US'
+
+			embeddedservice_bootstrap.init(
+				'00D4x000005TzfK',
+				'Web_Chat',
+				'https://clouii2-dev-ed.my.site.com/ESWWebChat1727357329094',
+				{
+					scrt2URL: 'https://clouii2-dev-ed.my.salesforce-scrt.com'
+				}
+			);
+		} catch (err) {
+			console.error('Error loading Embedded Messaging: ', err);
+		}
+	};
+</script>
+<script type='text/javascript' src='https://clouii2-dev-ed.my.site.com/ESWWebChat1727357329094/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5VXDLSDC"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
