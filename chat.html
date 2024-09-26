@@ -1,15 +1,18 @@
 <html>
     <head>
         <style>
-            /* Estilo para el botón de chat */
+            /* Estilo para el contenedor del botón de chat */
             #chat-button-container {
                 position: fixed;
                 bottom: 20px;
                 right: 20px;
                 z-index: 1000;
+                display: flex;
+                align-items: center;
             }
 
-            #liveagent_button_online_5733t0000000o03 {
+            /* Estilo del botón */
+            #liveagent_button {
                 display: inline-block;
                 background-color: #007bff;
                 color: white;
@@ -21,14 +24,62 @@
                 text-decoration: none;
             }
 
-            #liveagent_button_offline_5733t0000000o03 {
-                display: inline-block;
+            /* Estilo del botón en estado offline */
+            #liveagent_button.offline {
                 background-color: #cccccc;
+                cursor: not-allowed;
+            }
+
+            /* Estilo de la ventana de chat dentro de la página */
+            #chat-window {
+                display: none;
+                position: fixed;
+                bottom: 70px;
+                right: 20px;
+                width: 300px;
+                height: 400px;
+                background-color: white;
+                border: 1px solid #ddd;
+                box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+                z-index: 1001;
+            }
+
+            #chat-header {
+                background-color: #007bff;
                 color: white;
-                padding: 10px 20px;
-                border-radius: 5px;
+                padding: 10px;
                 text-align: center;
-                font-size: 16px;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            #chat-content {
+                padding: 10px;
+                height: 320px;
+                overflow-y: auto;
+            }
+
+            #chat-footer {
+                padding: 10px;
+                border-top: 1px solid #ddd;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            #chat-input {
+                width: 80%;
+                padding: 5px;
+                border: 1px solid #ddd;
+                border-radius: 3px;
+            }
+
+            #send-button {
+                padding: 5px 10px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
             }
         </style>
     </head>
@@ -36,36 +87,70 @@
     <body>
         <!-- Contenedor del botón de chat -->
         <div id="chat-button-container">
-            <!-- Botón de chat en línea -->
-            <a id="liveagent_button_online_5733t0000000o03" href="javascript://Chat" onclick="liveagent.startChat('5733t0000000o03')">
-                Online Chat
-            </a>
-            
-            <!-- Contenido de chat fuera de línea -->
-            <div id="liveagent_button_offline_5733t0000000o03">
-                Offline Chat
+            <!-- Botón unificado para online y offline -->
+            <div id="liveagent_button" class="offline">
+                Chat Offline
             </div>
         </div>
 
-        <!-- Script para mostrar el botón correcto según disponibilidad -->
+        <!-- Ventana de chat dentro de la página -->
+        <div id="chat-window">
+            <div id="chat-header">Chat en Vivo</div>
+            <div id="chat-content">
+                <!-- Aquí aparecerán los mensajes -->
+            </div>
+            <div id="chat-footer">
+                <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." />
+                <button id="send-button">Enviar</button>
+            </div>
+        </div>
+
+        <!-- Script para manejar el botón y la ventana de chat -->
         <script type="text/javascript">
         if (!window._laq) { window._laq = []; }
         window._laq.push(function() {
             liveagent.showWhenOnline(
-                '5733t0000000o03', 
-                document.getElementById('liveagent_button_online_5733t0000000o03')
+                '5733t0000000o03',
+                document.getElementById('liveagent_button')
             );
             liveagent.showWhenOffline(
-                '5733t0000000o03', 
-                document.getElementById('liveagent_button_offline_5733t0000000o03')
+                '5733t0000000o03',
+                document.getElementById('liveagent_button')
             );
         });
+
+        document.getElementById('liveagent_button').addEventListener('click', function() {
+            // Si el chat está online, iniciar chat dentro de la misma página
+            if (!this.classList.contains('offline')) {
+                document.getElementById('chat-window').style.display = 'block';
+                liveagent.startChat('5733t0000000o03');
+            }
+        });
+
+        // Cambia el estado del botón según esté online u offline
+        liveagent.addCustomDetail('chatStatus', 'Online');
+        liveagent.addCustomDetail('chatStatus', 'Offline');
+
+        // Inicializar live agent con tu configuración
+        liveagent.init('https://d.la1-c1-ia4.salesforceliveagent.com/chat', '5723t0000000nFa', '00D3t000002l3zt');
+
+        // Simulación de estado online/offline para probar el comportamiento
+        function updateChatButton(online) {
+            const chatButton = document.getElementById('liveagent_button');
+            if (online) {
+                chatButton.classList.remove('offline');
+                chatButton.textContent = 'Chat Online';
+            } else {
+                chatButton.classList.add('offline');
+                chatButton.textContent = 'Chat Offline';
+            }
+        }
+
+        // Puedes cambiar el estado a true o false para simular Online/Offline
+        updateChatButton(true); // true = Online, false = Offline
         </script>
 
         <!-- Código de despliegue del chat -->
         <script type='text/javascript' src='https://c.la1-c1-ia4.salesforceliveagent.com/content/g/js/61.0/deployment.js'></script>
-        <script type='text/javascript'>
-            liveagent.init('https://d.la1-c1-ia4.salesforceliveagent.com/chat', '5723t0000000nFa', '00D3t000002l3zt');
-        </script>
     </body>
 </html>
