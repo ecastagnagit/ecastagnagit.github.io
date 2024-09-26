@@ -68,7 +68,7 @@
 <body>
     <!-- Contenedor del botón de chat -->
     <div id="chat-button-container">
-        <a id="liveagent_button_online_573aj000002HkWr" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('573aj000002HkWr')">
+        <a id="liveagent_button_online_573aj000002HkWr" href="javascript://Chat" style="display: none;">
             Chat en Vivo
         </a>
         <div id="liveagent_button_offline_573aj000002HkWr" style="display: none;">
@@ -117,34 +117,36 @@
             s.setAttribute('src', 'https://mindful-narwhal-260re0-dev-ed.trailblaze.my.salesforce.com/embeddedservice/5.0/esw.min.js');
             s.onload = function() {
                 initESW(null);
+                initializeLiveAgent(); // Llama a la función que inicializa liveagent
             };
             document.body.appendChild(s);
         } else {
             initESW('https://service.force.com');
+            initializeLiveAgent(); // Llama a la función que inicializa liveagent
         }
 
-        // Lógica para mostrar el botón según el estado del agente
-        if (!window._laq) { window._laq = []; }
-        window._laq.push(function() {
-            liveagent.showWhenOnline('573aj000002HkWr', document.getElementById('liveagent_button_online_573aj000002HkWr'));
-            liveagent.showWhenOffline('573aj000002HkWr', document.getElementById('liveagent_button_offline_573aj000002HkWr'));
-        });
+        function initializeLiveAgent() {
+            // Lógica para mostrar el botón según el estado del agente
+            if (!window._laq) { window._laq = []; }
+            window._laq.push(function() {
+                liveagent.showWhenOnline('573aj000002HkWr', document.getElementById('liveagent_button_online_573aj000002HkWr'));
+                liveagent.showWhenOffline('573aj000002HkWr', document.getElementById('liveagent_button_offline_573aj000002HkWr'));
+            });
 
-        // Inicialización de liveagent
-        liveagent.init('https://d.la11-core1.sfdc-8tgtt5.salesforceliveagent.com/chat', '572aj000008NeST', '00Daj00000D91On');
-    </script>
+            // Inicialización de liveagent
+            liveagent.init('https://d.la11-core1.sfdc-8tgtt5.salesforceliveagent.com/chat', '572aj000008NeST', '00Daj00000D91On');
 
-    <script type="text/javascript">
-        // Mostrar y ocultar la ventana del chat
-        document.getElementById('liveagent_button_online_573aj000002HkWr').addEventListener('click', function() {
-            const chatWindow = document.getElementById('chat-window');
-            if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
-                chatWindow.style.display = 'block'; // Mostrar el chat
-                liveagent.startChat('573aj000002HkWr'); // Iniciar el chat
-            } else {
-                chatWindow.style.display = 'none'; // Ocultar el chat
-            }
-        });
+            // Mostrar y ocultar la ventana del chat
+            document.getElementById('liveagent_button_online_573aj000002HkWr').addEventListener('click', function() {
+                const chatWindow = document.getElementById('chat-window');
+                if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
+                    chatWindow.style.display = 'block'; // Mostrar el chat
+                    liveagent.startChat('573aj000002HkWr'); // Iniciar el chat
+                } else {
+                    chatWindow.style.display = 'none'; // Ocultar el chat
+                }
+            });
+        }
     </script>
 </body>
 </html>
