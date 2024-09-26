@@ -1,0 +1,36 @@
+<html>
+    <body>
+        <!-- Botón de chat en línea -->
+        <a id="liveagent_button_online_5733t0000000o03" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('5733t0000000o03')">
+            <!-- Online Chat Content -->
+            Online Chat
+        </a>
+        
+        <!-- Contenido de chat fuera de línea -->
+        <div id="liveagent_button_offline_5733t0000000o03" style="display: none;">
+            <!-- Offline Chat Content -->
+            Offline Chat
+        </div>
+
+        <!-- Script para mostrar el botón correcto según disponibilidad -->
+        <script type="text/javascript">
+        if (!window._laq) { window._laq = []; }
+        window._laq.push(function() {
+            liveagent.showWhenOnline(
+                '5733t0000000o03', 
+                document.getElementById('liveagent_button_online_5733t0000000o03')
+            );
+            liveagent.showWhenOffline(
+                '5733t0000000o03', 
+                document.getElementById('liveagent_button_offline_5733t0000000o03')
+            );
+        });
+        </script>
+
+        <!-- Código de despliegue del chat -->
+        <script type='text/javascript' src='https://c.la1-c1-ia4.salesforceliveagent.com/content/g/js/61.0/deployment.js'></script>
+        <script type='text/javascript'>
+            liveagent.init('https://d.la1-c1-ia4.salesforceliveagent.com/chat', '5723t0000000nFa', '00D3t000002l3zt');
+        </script>
+    </body>
+</html>
