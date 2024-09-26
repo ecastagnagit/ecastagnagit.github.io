@@ -7,8 +7,6 @@
                 bottom: 20px;
                 right: 20px;
                 z-index: 1000;
-                display: flex;
-                align-items: center;
             }
 
             /* Estilo del botón */
@@ -88,69 +86,4 @@
         <!-- Contenedor del botón de chat -->
         <div id="chat-button-container">
             <!-- Botón unificado para online y offline -->
-            <div id="liveagent_button" class="offline">
-                Chat Offline
-            </div>
-        </div>
-
-        <!-- Ventana de chat dentro de la página -->
-        <div id="chat-window">
-            <div id="chat-header">Chat en Vivo</div>
-            <div id="chat-content">
-                <!-- Aquí aparecerán los mensajes -->
-            </div>
-            <div id="chat-footer">
-                <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." />
-                <button id="send-button">Enviar</button>
-            </div>
-        </div>
-
-        <!-- Script para manejar el botón y la ventana de chat -->
-        <script type="text/javascript">
-        if (!window._laq) { window._laq = []; }
-        window._laq.push(function() {
-            liveagent.showWhenOnline(
-                '5733t0000000o03',
-                document.getElementById('liveagent_button')
-            );
-            liveagent.showWhenOffline(
-                '5733t0000000o03',
-                document.getElementById('liveagent_button')
-            );
-        });
-
-        document.getElementById('liveagent_button').addEventListener('click', function() {
-            // Si el chat está online, iniciar chat dentro de la misma página
-            if (!this.classList.contains('offline')) {
-                document.getElementById('chat-window').style.display = 'block';
-                liveagent.startChat('5733t0000000o03');
-            }
-        });
-
-        // Cambia el estado del botón según esté online u offline
-        liveagent.addCustomDetail('chatStatus', 'Online');
-        liveagent.addCustomDetail('chatStatus', 'Offline');
-
-        // Inicializar live agent con tu configuración
-        liveagent.init('https://d.la1-c1-ia4.salesforceliveagent.com/chat', '5723t0000000nFa', '00D3t000002l3zt');
-
-        // Simulación de estado online/offline para probar el comportamiento
-        function updateChatButton(online) {
-            const chatButton = document.getElementById('liveagent_button');
-            if (online) {
-                chatButton.classList.remove('offline');
-                chatButton.textContent = 'Chat Online';
-            } else {
-                chatButton.classList.add('offline');
-                chatButton.textContent = 'Chat Offline';
-            }
-        }
-
-        // Puedes cambiar el estado a true o false para simular Online/Offline
-        updateChatButton(true); // true = Online, false = Offline
-        </script>
-
-        <!-- Código de despliegue del chat -->
-        <script type='text/javascript' src='https://c.la1-c1-ia4.salesforceliveagent.com/content/g/js/61.0/deployment.js'></script>
-    </body>
-</html>
+            <div id="liveagent_button
