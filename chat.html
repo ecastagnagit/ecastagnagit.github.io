@@ -3,110 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat en Vivo</title>
+    <title>Embedded Service Chat</title>
     <style type='text/css'>
         .embeddedServiceHelpButton .helpButton .uiButton {
-            background-color: #005290; /* Color de fondo del botón */
-            font-family: "Arial", sans-serif; /* Fuente del botón */
+            background-color: #005290;
+            font-family: "Arial", sans-serif;
         }
         .embeddedServiceHelpButton .helpButton .uiButton:focus {
-            outline: 1px solid #005290; /* Estilo de contorno cuando el botón está enfocado */
-        }
-
-        /* Estilo para el contenedor del botón de chat */
-        #chat-button-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        /* Estilo del botón */
-        #liveagent_button {
-            display: inline-block;
-            background-color: #005290; /* Color del botón */
-            color: white; /* Color del texto */
-            padding: 10px 20px; /* Espaciado interno */
-            border-radius: 5px; /* Bordes redondeados */
-            text-align: center; /* Alinear texto al centro */
-            font-size: 16px; /* Tamaño de fuente */
-            cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
-            text-decoration: none; /* Sin subrayado */
-        }
-
-        /* Estilo de la ventana de chat dentro de la página */
-        #chat-window {
-            display: none; /* Ocultar por defecto */
-            position: fixed;
-            bottom: 70px; /* Espacio desde el botón */
-            right: 20px; /* Espacio a la derecha */
-            width: 300px; /* Ancho de la ventana */
-            height: 400px; /* Alto de la ventana */
-            background-color: white; /* Color de fondo */
-            border: 1px solid #ddd; /* Borde */
-            box-shadow: 0px 4px 8px rgba(0,0,0,0.1); /* Sombra */
-            z-index: 1001; /* Asegurarse que esté por encima de otros elementos */
-        }
-
-        #chat-header {
-            background-color: #005290; /* Color de fondo del encabezado */
-            color: white; /* Color del texto */
-            padding: 10px; /* Espaciado interno */
-            text-align: center; /* Centrar texto */
-            font-size: 18px; /* Tamaño de fuente */
-            font-weight: bold; /* Negrita */
-        }
-
-        #chat-content {
-            padding: 10px; /* Espaciado interno */
-            height: 320px; /* Alto del contenido */
-            overflow-y: auto; /* Desplazamiento vertical si es necesario */
+            outline: 1px solid #005290;
         }
     </style>
 </head>
-
 <body>
-    <!-- Contenedor del botón de chat -->
-    <div id="chat-button-container">
-        <a id="liveagent_button_online_573aj000002HkWr" href="javascript://Chat" style="display: none;">
-            Chat en Vivo
-        </a>
-        <div id="liveagent_button_offline_573aj000002HkWr" style="display: none;">
-            Chat Offline
-        </div>
-    </div>
 
-    <!-- Ventana de chat dentro de la página -->
-    <div id="chat-window">
-        <div id="chat-header">Chat en Vivo</div>
-        <div id="chat-content">
-            <!-- Aquí aparecerán los mensajes -->
-        </div>
-    </div>
+    <h1>Bienvenido a nuestro servicio de chat</h1>
 
-    <!-- Scripts para la configuración de Embedded Service -->
     <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
     <script type='text/javascript'>
         var initESW = function(gslbBaseURL) {
-            embedded_svc.settings.displayHelpButton = true; // Mostrar botón de ayuda
-            embedded_svc.settings.language = ''; // Configurar el idioma
+            embedded_svc.settings.displayHelpButton = true; // O false
+            embedded_svc.settings.language = ''; // Por ejemplo, 'en' o 'es'
 
-            // Configuración de Chat
+            // Configuraciones para el chat
             embedded_svc.settings.enabledFeatures = ['LiveAgent'];
             embedded_svc.settings.entryFeature = 'LiveAgent';
 
             embedded_svc.init(
-                'https://mindful-narwhal-260re0-dev-ed.trailblaze.my.salesforce.com',
-                'https://mindful-narwhal-260re0-dev-ed.trailblaze.my.site.com/testlwrvforcesite',
+                'https://mindful-narwhal-260re0-dev-ed.trailblaze.my.salesforce.com', // URL de tu instancia de Salesforce
+                'https://mindful-narwhal-260re0-dev-ed.trailblaze.my.site.com/testlwrvforcesite', // URL de tu sitio
                 gslbBaseURL,
-                '00Daj00000D91On',
-                'Agent',
+                '00Daj00000D91On', // ID de tu organización
+                'Agent', // Nombre del desarrollador de Live Agent
                 {
                     baseLiveAgentContentURL: 'https://c.la11-core1.sfdc-8tgtt5.salesforceliveagent.com/content',
-                    deploymentId: '572aj000008NeST',
-                    buttonId: '573aj000002HkWr',
+                    deploymentId: '572aj000008NeST', // ID del despliegue
+                    buttonId: '573aj000002HkWr', // ID del botón
                     baseLiveAgentURL: 'https://d.la11-core1.sfdc-8tgtt5.salesforceliveagent.com/chat',
-                    eswLiveAgentDevName: 'Agent',
+                    eswLiveAgentDevName: 'Agent', // Nombre del desarrollador de Live Agent
                     isOfflineSupportEnabled: false
                 }
             );
@@ -117,36 +50,28 @@
             s.setAttribute('src', 'https://mindful-narwhal-260re0-dev-ed.trailblaze.my.salesforce.com/embeddedservice/5.0/esw.min.js');
             s.onload = function() {
                 initESW(null);
-                initializeLiveAgent(); // Llama a la función que inicializa liveagent
             };
             document.body.appendChild(s);
         } else {
             initESW('https://service.force.com');
-            initializeLiveAgent(); // Llama a la función que inicializa liveagent
-        }
-
-        function initializeLiveAgent() {
-            // Lógica para mostrar el botón según el estado del agente
-            if (!window._laq) { window._laq = []; }
-            window._laq.push(function() {
-                liveagent.showWhenOnline('573aj000002HkWr', document.getElementById('liveagent_button_online_573aj000002HkWr'));
-                liveagent.showWhenOffline('573aj000002HkWr', document.getElementById('liveagent_button_offline_573aj000002HkWr'));
-            });
-
-            // Inicialización de liveagent
-            liveagent.init('https://d.la11-core1.sfdc-8tgtt5.salesforceliveagent.com/chat', '572aj000008NeST', '00Daj00000D91On');
-
-            // Mostrar y ocultar la ventana del chat
-            document.getElementById('liveagent_button_online_573aj000002HkWr').addEventListener('click', function() {
-                const chatWindow = document.getElementById('chat-window');
-                if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
-                    chatWindow.style.display = 'block'; // Mostrar el chat
-                    liveagent.startChat('573aj000002HkWr'); // Iniciar el chat
-                } else {
-                    chatWindow.style.display = 'none'; // Ocultar el chat
-                }
-            });
         }
     </script>
+
+    <a id="liveagent_button_online_573aj000002HkWr" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('573aj000002HkWr')"><!-- Contenido del chat en línea --></a>
+    <div id="liveagent_button_offline_573aj000002HkWr" style="display: none;"><!-- Contenido del chat fuera de línea --></div>
+    
+    <script type="text/javascript">
+    if (!window._laq) { window._laq = []; }
+    window._laq.push(function(){
+        liveagent.showWhenOnline('573aj000002HkWr', document.getElementById('liveagent_button_online_573aj000002HkWr'));
+        liveagent.showWhenOffline('573aj000002HkWr', document.getElementById('liveagent_button_offline_573aj000002HkWr'));
+    });
+    </script>
+
+    <script type='text/javascript' src='https://c.la11-core1.sfdc-8tgtt5.salesforceliveagent.com/content/g/js/61.0/deployment.js'></script>
+    <script type='text/javascript'>
+    liveagent.init('https://d.la11-core1.sfdc-8tgtt5.salesforceliveagent.com/chat', '572aj000008NeST', '00Daj00000D91On');
+    </script>
+    
 </body>
 </html>
