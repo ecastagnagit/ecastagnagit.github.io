@@ -1,89 +1,130 @@
 <html>
-    <head>
-        <style>
-            /* Estilo para el contenedor del botón de chat */
-            #chat-button-container {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                z-index: 1000;
-            }
+<head>
+    <style type='text/css'>
+        .embeddedServiceHelpButton .helpButton .uiButton {
+            background-color: #005290; /* Color de fondo del botón */
+            font-family: "Arial", sans-serif; /* Fuente del botón */
+        }
+        .embeddedServiceHelpButton .helpButton .uiButton:focus {
+            outline: 1px solid #005290; /* Estilo de contorno cuando el botón está enfocado */
+        }
 
-            /* Estilo del botón */
-            #liveagent_button {
-                display: inline-block;
-                background-color: #007bff;
-                color: white;
-                padding: 10px 20px;
-                border-radius: 5px;
-                text-align: center;
-                font-size: 16px;
-                cursor: pointer;
-                text-decoration: none;
-            }
+        /* Estilo para el contenedor del botón de chat */
+        #chat-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
 
-            /* Estilo del botón en estado offline */
-            #liveagent_button.offline {
-                background-color: #cccccc;
-                cursor: not-allowed;
-            }
+        /* Estilo del botón */
+        #liveagent_button {
+            display: inline-block;
+            background-color: #005290; /* Color del botón */
+            color: white; /* Color del texto */
+            padding: 10px 20px; /* Espaciado interno */
+            border-radius: 5px; /* Bordes redondeados */
+            text-align: center; /* Alinear texto al centro */
+            font-size: 16px; /* Tamaño de fuente */
+            cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+            text-decoration: none; /* Sin subrayado */
+        }
+        
+        /* Estilo de la ventana de chat dentro de la página */
+        #chat-window {
+            display: none; /* Ocultar por defecto */
+            position: fixed;
+            bottom: 70px; /* Espacio desde el botón */
+            right: 20px; /* Espacio a la derecha */
+            width: 300px; /* Ancho de la ventana */
+            height: 400px; /* Alto de la ventana */
+            background-color: white; /* Color de fondo */
+            border: 1px solid #ddd; /* Borde */
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1); /* Sombra */
+            z-index: 1001; /* Asegurarse que esté por encima de otros elementos */
+        }
 
-            /* Estilo de la ventana de chat dentro de la página */
-            #chat-window {
-                display: none;
-                position: fixed;
-                bottom: 70px;
-                right: 20px;
-                width: 300px;
-                height: 400px;
-                background-color: white;
-                border: 1px solid #ddd;
-                box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
-                z-index: 1001;
-            }
+        #chat-header {
+            background-color: #005290; /* Color de fondo del encabezado */
+            color: white; /* Color del texto */
+            padding: 10px; /* Espaciado interno */
+            text-align: center; /* Centrar texto */
+            font-size: 18px; /* Tamaño de fuente */
+            font-weight: bold; /* Negrita */
+        }
 
-            #chat-header {
-                background-color: #007bff;
-                color: white;
-                padding: 10px;
-                text-align: center;
-                font-size: 18px;
-                font-weight: bold;
-            }
+        #chat-content {
+            padding: 10px; /* Espaciado interno */
+            height: 320px; /* Alto del contenido */
+            overflow-y: auto; /* Desplazamiento vertical si es necesario */
+        }
+    </style>
+</head>
 
-            #chat-content {
-                padding: 10px;
-                height: 320px;
-                overflow-y: auto;
-            }
+<body>
+    <!-- Contenedor del botón de chat -->
+    <div id="chat-button-container">
+        <div id="liveagent_button">
+            Chat
+        </div>
+    </div>
 
-            #chat-footer {
-                padding: 10px;
-                border-top: 1px solid #ddd;
-                display: flex;
-                justify-content: space-between;
-            }
+    <!-- Ventana de chat dentro de la página -->
+    <div id="chat-window">
+        <div id="chat-header">Chat en Vivo</div>
+        <div id="chat-content">
+            <!-- Aquí aparecerán los mensajes -->
+        </div>
+    </div>
 
-            #chat-input {
-                width: 80%;
-                padding: 5px;
-                border: 1px solid #ddd;
-                border-radius: 3px;
-            }
+    <!-- Scripts para la configuración de Embedded Service -->
+    <script type='text/javascript'>
+        var initESW = function(gslbBaseURL) {
+            embedded_svc.settings.displayHelpButton = true; // Mostrar botón de ayuda
+            embedded_svc.settings.language = ''; // Configurar el idioma
 
-            #send-button {
-                padding: 5px 10px;
-                background-color: #007bff;
-                color: white;
-                border: none;
-                border-radius: 3px;
-                cursor: pointer;
-            }
-        </style>
-    </head>
+            // Configuración de Chat
+            embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+            embedded_svc.settings.entryFeature = 'LiveAgent';
 
-    <body>
-        <!-- Contenedor del botón de chat -->
-        <div id="chat-button-container">
-            <!-- Botón unificado para online y offline -->
-            <div id="liveagent_button
+            embedded_svc.init(
+                'https://creative-bear-ay8au7-dev-ed.my.salesforce.com',
+                'https://creative-bear-ay8au7-dev-ed.my.site.com/cusotmeruser',
+                gslbBaseURL,
+                '00D3t000002l3zt',
+                'Chat_Agentes',
+                {
+                    baseLiveAgentContentURL: 'https://c.la1-c1-ia4.salesforceliveagent.com/content',
+                    deploymentId: '5723t0000000nFa',
+                    buttonId: '5733t0000000o03',
+                    baseLiveAgentURL: 'https://d.la1-c1-ia4.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'Chat_Agentes',
+                    isOfflineSupportEnabled: true
+                }
+            );
+        };
+
+        if (!window.embedded_svc) {
+            var s = document.createElement('script');
+            s.setAttribute('src', 'https://creative-bear-ay8au7-dev-ed.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+            s.onload = function() {
+                initESW(null);
+            };
+            document.body.appendChild(s);
+        } else {
+            initESW('https://service.force.com');
+        }
+
+        // Mostrar y ocultar la ventana del chat
+        document.getElementById('liveagent_button').addEventListener('click', function() {
+            const chatWindow = document.getElementById('chat-window');
+            if (chatWindow.style.display === 'none') {
+                chatWindow.style.display = 'block'; // Mostrar el chat
+                liveagent.startChat('5733t0000000o03'); // Iniciar el chat
+            } else {
+                chatWindow.style.display = 'none'; // Ocultar el chat
+            }
+        });
+    </script>
+</body>
+</html>
