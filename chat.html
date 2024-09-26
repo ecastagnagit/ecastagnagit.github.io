@@ -1,15 +1,50 @@
 <html>
+    <head>
+        <style>
+            /* Estilo para el botón de chat */
+            #chat-button-container {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 1000;
+            }
+
+            #liveagent_button_online_5733t0000000o03 {
+                display: inline-block;
+                background-color: #007bff;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                text-align: center;
+                font-size: 16px;
+                cursor: pointer;
+                text-decoration: none;
+            }
+
+            #liveagent_button_offline_5733t0000000o03 {
+                display: inline-block;
+                background-color: #cccccc;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                text-align: center;
+                font-size: 16px;
+            }
+        </style>
+    </head>
+
     <body>
-        <!-- Botón de chat en línea -->
-        <a id="liveagent_button_online_5733t0000000o03" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('5733t0000000o03')">
-            <!-- Online Chat Content -->
-            Online Chat
-        </a>
-        
-        <!-- Contenido de chat fuera de línea -->
-        <div id="liveagent_button_offline_5733t0000000o03" style="display: none;">
-            <!-- Offline Chat Content -->
-            Offline Chat
+        <!-- Contenedor del botón de chat -->
+        <div id="chat-button-container">
+            <!-- Botón de chat en línea -->
+            <a id="liveagent_button_online_5733t0000000o03" href="javascript://Chat" onclick="liveagent.startChat('5733t0000000o03')">
+                Online Chat
+            </a>
+            
+            <!-- Contenido de chat fuera de línea -->
+            <div id="liveagent_button_offline_5733t0000000o03">
+                Offline Chat
+            </div>
         </div>
 
         <!-- Script para mostrar el botón correcto según disponibilidad -->
