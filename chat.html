@@ -3,45 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Service Chat</title>
+    <title>Chat con Live Agent</title>
     <style type='text/css'>
-        /* Estilos para el botón de chat */
         .embeddedServiceHelpButton .helpButton .uiButton {
             background-color: #005290;
             font-family: "Arial", sans-serif;
         }
+        .embeddedServiceHelpButton .helpButton .uiButton:focus {
+            outline: 1px solid #005290;
+        }
     </style>
 </head>
 <body>
-
-    <h1>Bienvenido a nuestro servicio de chat</h1>
+    <div id="liveagent_container">
+        <a id="liveagent_button_online_573bm000001fr6D" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('573bm000001fr6D')">
+            <!-- Online Chat Content -->
+        </a>
+        <div id="liveagent_button_offline_573bm000001fr6D" style="display: none;">
+            <!-- Offline Chat Content -->
+        </div>
+    </div>
 
     <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
     <script type='text/javascript'>
         var initESW = function(gslbBaseURL) {
-            embedded_svc.settings.displayHelpButton = true;
-            embedded_svc.settings.language = ''; // 'en' o 'es'
+            embedded_svc.settings.displayHelpButton = true; // Mostrar botón de ayuda
+            embedded_svc.settings.language = ''; // Establecer el idioma (ejemplo: 'en' o 'en-US')
+
+            // Configuración para el chat
+            embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+            embedded_svc.settings.entryFeature = 'LiveAgent';
 
             embedded_svc.init(
-                'https://mindful-narwhal-260re0-dev-ed.trailblaze.my.salesforce.com',
-                'https://mindful-narwhal-260re0-dev-ed.trailblaze.my.site.com/testlwrvforcesite',
+                'https://cunning-narwhal-bt26r7-dev-ed.trailblaze.my.salesforce.com',
+                'https://cunning-narwhal-bt26r7-dev-ed.trailblaze.my.salesforce-sites.com/test',
                 gslbBaseURL,
-                '00Daj00000D91On',
-                'Agent',
+                '00Dbm00000A5boZ',
+                'Bot',
                 {
-                    baseLiveAgentContentURL: 'https://c.la11-core1.sfdc-8tgtt5.salesforceliveagent.com/content',
-                    deploymentId: '572aj000008NeST',
-                    buttonId: '573aj000002HkWr',
-                    baseLiveAgentURL: 'https://d.la11-core1.sfdc-8tgtt5.salesforceliveagent.com/chat',
-                    eswLiveAgentDevName: 'Agent',
-                    isOfflineSupportEnabled: false
+                    baseLiveAgentContentURL: 'https://c.la11-core1.sfdc-yfeipo.salesforceliveagent.com/content',
+                    deploymentId: '572bm000005wsef',
+                    buttonId: '573bm000001fr6D',
+                    baseLiveAgentURL: 'https://d.la11-core1.sfdc-yfeipo.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'Bot',
+                    isOfflineSupportEnabled: true
                 }
             );
         };
 
         if (!window.embedded_svc) {
             var s = document.createElement('script');
-            s.setAttribute('src', 'https://mindful-narwhal-260re0-dev-ed.trailblaze.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+            s.setAttribute('src', 'https://cunning-narwhal-bt26r7-dev-ed.trailblaze.my.salesforce.com/embeddedservice/5.0/esw.min.js');
             s.onload = function() {
                 initESW(null);
             };
@@ -51,21 +63,17 @@
         }
     </script>
 
-    <a id="liveagent_button_online_573aj000002HkWr" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('573aj000002HkWr')"><!-- Contenido del chat en línea --></a>
-    <div id="liveagent_button_offline_573aj000002HkWr" style="display: none;"><!-- Contenido del chat fuera de línea --></div>
-
     <script type="text/javascript">
-    if (!window._laq) { window._laq = []; }
-    window._laq.push(function(){
-        liveagent.showWhenOnline('573aj000002HkWr', document.getElementById('liveagent_button_online_573aj000002HkWr'));
-        liveagent.showWhenOffline('573aj000002HkWr', document.getElementById('liveagent_button_offline_573aj000002HkWr'));
-    });
+        if (!window._laq) { window._laq = []; }
+        window._laq.push(function() {
+            liveagent.showWhenOnline('573bm000001fr6D', document.getElementById('liveagent_button_online_573bm000001fr6D'));
+            liveagent.showWhenOffline('573bm000001fr6D', document.getElementById('liveagent_button_offline_573bm000001fr6D'));
+        });
     </script>
 
-    <script type='text/javascript' src='https://c.la11-core1.sfdc-8tgtt5.salesforceliveagent.com/content/g/js/61.0/deployment.js'></script>
+    <script type='text/javascript' src='https://c.la11-core1.sfdc-yfeipo.salesforceliveagent.com/content/g/js/61.0/deployment.js'></script>
     <script type='text/javascript'>
-    liveagent.init('https://d.la11-core1.sfdc-8tgtt5.salesforceliveagent.com/chat', '572aj000008NeST', '00Daj00000D91On');
+        liveagent.init('https://d.la11-core1.sfdc-yfeipo.salesforceliveagent.com/chat', '572bm000005wsef', '00Dbm00000A5boZ');
     </script>
-
 </body>
 </html>
